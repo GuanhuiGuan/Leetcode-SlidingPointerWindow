@@ -1,0 +1,24 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+
+        if len(s) < 2:
+            return len(s);
+        
+        dict = {};
+        length = 0;
+
+        
+        i = 0;
+        for j in range(len(s)):
+            if s[j] in dict and dict[s[j]] >= i:
+                i = dict[s[j]] + 1;             # move i to the next position of the original duplicate
+            dict[s[j]] = j;                 # reset position in dictionary(always update to the latest position)
+            length = max(length, j - i + 1);    # update length
+            print(i, j);
+            
+          
+        return length;
