@@ -1,0 +1,40 @@
+class Solution(object):
+    def minWindow(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        from collections import Counter
+        
+        if len(s) < len(t) or len(t) < 1:
+            return '';
+        length = len(s) + 1; # the impossible scenario; distinguish not finding anything
+        i = 0;
+        start = 0;
+        dict = Counter(t);
+        k = len(t);            # total length of required
+        
+        for j in range(len(s)): 
+            if s[j] in t:
+                dict[s[j]] -= 1;        # If there's unnecessary duplicate, we use negative to represent as redundancy
+                if dict[s[j]] >= 0:     # Exclude those cases that we have unnecessary duplicates, when we don't decrease k
+                    k -= 1;
+                
+            if k == 0: 
+                while k == 0:                   # k increases when one character in dict is larger than 0
+                    if s[i] in dict:
+                        dict[s[i]] += 1;
+                        if dict[s[i]] > 0:      # No redundancy: 0; Still need one more: 1
+                            k += 1;
+                    i += 1;
+                if length > j - i + 2:   # i-1 to j    
+                    start = i - 1;
+                    length = j - i + 2;
+                    
+            #print(i, j, k);        
+
+        if length ==  len(s) + 1:
+            return '';
+        else:
+            return s[start: start + length];
