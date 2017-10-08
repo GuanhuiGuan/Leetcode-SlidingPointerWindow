@@ -1,0 +1,32 @@
+class Solution:
+    """
+    @param: s: A string
+    @param: k: An integer
+    @return: An integer
+    """
+    def lengthOfLongestSubstringKDistinct(self, s, k):
+        # write your code here
+        if len(s) < k:
+            return len(s);
+        if k == 0:
+            return 0;
+            
+        dict = {};
+        i = 0;
+        start = 0;
+        length = 0;
+        
+        for j in range(len(s)):
+            if s[j] not in dict:
+                dict[s[j]] = 1;
+            else:
+                dict[s[j]] += 1;
+             
+            while len(dict) > k and i < j:        # Number of distinct characters        
+                dict[s[i]] -= 1;
+                if dict[s[i]] <= 0:
+                    dict.pop(s[i], None);
+                i += 1;
+            length = max(length, j-i+1);      # i to j; less than or equal to k distinct elements
+            print(i, j);        
+        return length;
