@@ -1,0 +1,54 @@
+# Two Sum II: Two sum in sorted array
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int i = 0;
+        int j = numbers.size() - 1;
+        if (numbers.size() < 2){
+            return {};
+        }
+        while(i < j){
+            if(numbers[i] + numbers[j] == target){
+                return {i + 1, j + 1};
+            }
+            else if(numbers[i] + numbers[j] < target){
+                i++;
+            }
+            else{
+                j--;
+            }
+        }
+        return {};
+    }
+};
+
+
+# two sum less than or equal to target
+class Solution {
+public:
+    /*
+     * @param nums: an array of integer
+     * @param target: an integer
+     * @return: an integer
+     */
+    int twoSum5(vector<int> &nums, int target) {
+        // write your code here
+        if (nums.size() < 2){
+            return 0;
+        }
+        sort(nums.begin(), nums.end());
+        int i = 0;
+        int j = nums.size() - 1;
+        int count = 0;
+        
+        while(i < j){
+            if (nums[i] + nums[j] <= target){
+                count += j - i;
+                i++;
+            }else{
+                j--;
+            }
+        }return count;
+    }
+};
